@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zoodex fastfood cart</title>
+
+    <!-- project dependacies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="zoodex-card.css" />
+  </head>
+  <body>
+    <h2>Fast-Food-List</h2>
+    <div id="list-fast-food"></div>
+    <script>
+      function getFastFoods() {
+        $.ajax({
+          url: "https://admin.zoodex.ir/api/v3/vendors/city/kerman/list/fastfood?with=total_count&offset=0&limit=20&latitude=&longitude=",
+          type: "GET",
+          success: function (response) {
+            const fastfoodList = response.data;
+            fastfoodList.forEach((fastfood) => {
+              $("#list-fast-food").append(`
+              <div class="fastfood-card">
+                <img src="${fastfood.background.desktop}" alt="${fastfood.title}" />
+                <div>${fastfood.title}</div>
+              </div>
+            `);
+            });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+          },
+        });
+      }
+      $(document).ready(function () {
+        getFastFoods();
+      });
+    </script>
+  </body>
+</html>
+<!-- <body>
+    <div id="list"></div>
+    <script>
+      let fastfoodList = [];
+
+      function getFastFoods() {
+        $.ajax({
+          url: "https://admin.zoodex.ir/api/v3/vendors/city/kerman/list/fastfood?with=total_count&offset=0&limit=20&latitude=&longitude=",
+          type: "GET",
+          success: function (response) {
+            fastfoodList = response.data;
+
+            renderFastFoodList();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+          },
+        });
+      }
+
+      function renderFastFoodList() {
+        function generateCard(fastfood) {
+            return `
+                <div style="color: blue;">
+                    <div>
+                        ${fastfood.title}
+                    </div>    
+
+                    <img src="${fastfood.background.desktop}" width="100px" height="100px" style="object-fit:cover;" />
+                </div>
+            `
+        }
+
+        const htmlCards = []
+
+        fastfoodList.forEach(
+            function(fastfood) {
+                htmlCards.push(generateCard(fastfood))
+            }
+        )
+
+        $('#list').html(htmlCards)
+      }
+
+
+      $(document).ready(function () {
+        getFastFoods()
+      });
+    </script>
+  </body> -->
