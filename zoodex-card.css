@@ -24,6 +24,12 @@ h2 {
 #list-fast-food {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: content-box;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 .fastfood-card img {
   width: 100%;
