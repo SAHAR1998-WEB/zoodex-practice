@@ -5,42 +5,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>zoodex fastfood cart</title>
-
-  <!-- project dependencies -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="zoodex-card.css" />
 </head>
 
 <body>
   <h2>Fast-Food-List</h2>
-  <div id="list-fast-food"></div>
+  <div class="swiper">
+    <div class="swiper-wrapper" id="list-fast-food"></div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
   <script>
     function getFastFoods() {
       $.ajax({
-        url: "https://admin.zoodex.ir/api/v3/vendors/city/kerman/list/fastfood?with=total_count&offset=0&limit=20&latitude=&longitude=",
+        url: "https://admin.zoodex.ir/api/v3/vendors/city/kerman/list/fastfood?with=total_count&offset=0&limit=10&latitude=&longitude=",
         type: "GET",
         success: function (response) {
           const fastfoodList = response.data;
           fastfoodList.forEach((fastfood) => {
-            $('#list-fast-food').append(`
-              <div class="fastfood-card">
-                <div class="image-container">
-                  <img src="${fastfood.background.desktop}" alt="background" class="background-image">
-                  <img src="${fastfood.logo}" alt="logo" class="logo-image">
-                </div>
-                <div class="info-container">
-                  <div class="title">${fastfood.title}</div>
-                  <div class="rate">
-                  (${fastfood.reach} امتیاز عملکرد)         ${fastfood.rate}<img src="access/bold-star.svg" class="star-icon" />
-                  </div>
-                  <div class="address">${fastfood.mini_address} | ${fastfood.avg_time} دقیقه</div>
-                  <div class="plus-box">
-                    <span>ارسال رایگان و ۷.۵٪ تخفیف پلاس</span>
-                    <img src="access/text-plus.svg" />
-                  </div>
-                </div>
-              </div>
-            `);
+            $('#list-fast-food').append(`     
+<div class="swiper-slide">
+        <div class="fastfood-card">
+          <div class="image-container">
+            <img src="${fastfood.background.desktop}" alt="background" class="background-image">
+            <img src="${fastfood.logo}" alt="logo" class="logo-image">
+          </div>
+          <div class="info-container">
+            <div class="title">${fastfood.title}</div>
+            <div class="rate">
+              (${fastfood.reach} امتیاز عملکرد) ${fastfood.rate}
+              <img src="access/bold-star.svg" class="star-icon" />
+            </div>
+            <div class="address">${fastfood.mini_address} | ${fastfood.avg_time} دقیقه</div>
+            <div class="plus-box">
+              <span>ارسال رایگان و ۷.۵٪ تخفیف پلاس</span>
+              <img src="access/text-plus.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+          });
+          new Swiper('.swiper', {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000 },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+              0: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 }
+            }
           });
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -48,6 +71,7 @@
         },
       });
     }
+
     $(document).ready(function () {
       getFastFoods();
     });
