@@ -33,7 +33,7 @@
         <div class="fastfood-card">
           <div class="image-container">
             <img src="${fastfood.background.desktop}" alt="background" class="background-image">
-            <img src="${fastfood.logo}" alt="logo" class="logo-image">
+            <img src="${fastfood.logo}" || "access/ph-fastfood.svg" alt="logo" class="logo-image">
           </div>
           <div class="info-container">
             <div class="title">${fastfood.title}</div>
@@ -63,7 +63,7 @@
               0: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 }
+              1280: { slidesPerView: 6 }
             }
           });
         },

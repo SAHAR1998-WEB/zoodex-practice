@@ -4,6 +4,10 @@
    margin: 0;
    padding: 20px;
    direction: rtl;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
  }
 
  h2 {
@@ -94,6 +98,7 @@
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
+
  }
 
  .discount-badge {
